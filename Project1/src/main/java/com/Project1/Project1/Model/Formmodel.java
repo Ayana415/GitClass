@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Formmodel {
@@ -15,9 +16,33 @@ public class Formmodel {
 	private String name;
 	private String mail;
 	private String message;
-	private int phonenumber;
+	private String phonenumber;
+	private String password;
+	private String token;
+	
+	 public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	@Transient
+	private String confirmpassword;
 	
 	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getConfirmpassword() {
+		
+		return confirmpassword;
+	}
+	public void setConfirmpassword(String confirmpassword) {
+		this.confirmpassword = confirmpassword;
+	}
 	public int getId() {
 		return id;
 	}
@@ -42,10 +67,10 @@ public class Formmodel {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public int getPhonenumber() {
+	public String getPhonenumber() {
 		return phonenumber;
 	}
-	public void setPhonenumber(int phonenumber) {
+	public void setPhonenumber(String phonenumber) {
 		this.phonenumber = phonenumber;
 	}
 	

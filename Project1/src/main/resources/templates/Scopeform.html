@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Form</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        form {
+            justify-content: center;
+            align-items: center;
+            width: 1000px;
+            height:700px;
+            background-color: #fff; 
+            /* background-color:red; */
+            padding: 20px;
+            border-radius: 8px ;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        fieldset {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 200 px;
+            width:50%;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        .seto{ margin-bottom:0px;}
+        .sett{
+            /* padding: 5px 0px 5px 5px; */
+           margin-top:15px;
+           margin-bottom:5px;
+           
+        } 
+
+        legend {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            display: flex;
+            margin-bottom: 5px;
+        }
+
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea,
+        input[type="tel"]
+        input[type="date"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .gender-group,.Ra-group ,.time-group{
+            margin-bottom: 10px;
+        }
+
+        .gender-group label,.Ra-group label ,.time-group label{
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        input[type="radio"] {
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <form  style="display:flex ;column-gap:10px" method="post" th:action="@{/sp/send}" th:object="${stud}">
+        <fieldset class="seto">
+           <legend>Register Here</legend>
+            <label for="name">Enter your full name:</label>
+            <input type="text" id="name" th:field="${stud.name}" required />
+            <label for="dob">Enter your Date of Birth:</label>
+            <input type="date" id="dob"  th:field="${stud.date}" required /></br></br>
+
+            <label>Enter your gender:</label>
+            <div class="gender-group">
+                <input type="radio"  th:field="${stud.gender}" value="male" id="male" required />
+                <label for="male">Male</label>
+                <input type="radio"  th:field="${stud.gender}" value="female" id="female" />
+                <label for="female">Female</label>
+                <input type="radio"  th:field="${stud.gender}" value="others" id="others" />
+                <label for="others">Others</label>
+            </div>
+            <label for="edu">Educational Qualification</label>
+            <input type="text" id="edu"  th:field="${stud.edu}" required />
+
+            <label for="edu">Choose Your Course</label>
+            <input type="text" id="edu" th:field="${stud.course}" required />
+
+            <label for="tel">Mobile Number:</label>
+            <input type="tel" id="tel" th:field="${stud.tel}" required />
+           
+
+            <label for="email">Enter your email:</label>
+            <input type="email" id="email" th:field="${stud.mail}" required />
+
+            <label>Training Mode:</label>
+                <div class="Ra-group">
+                     <input type="radio" th:field="${stud.on}" value="Online" id="on" required />
+                     <label for="Ra">Online</label>
+                    <input type="radio" th:field="${stud.class}" value="Classroom" id="cl" />
+                    <label for="Ra">Classroom</label>
+            
+                 </div>
+
+            <label>SCOPE INDIA Location :</label>
+                 <div class="Ra-group">
+                      <input type="radio" th:field="${stud.onl}" value="Online" id="on" required />
+                      <label for="">Technopark TVM </label>
+                     <input type="radio" th:field="${stud.onl}" value="Classroom" id="cl" />
+                     <label for="Ra">Thampanoor TVM </label>
+                     <input type="radio" th:field="${stud.onl}" value="Online" id="on" required />
+                      <label for="Ra">Kochi </label></br>
+                     <input type="radio" th:field="${stud.onl}" value="Classroom" id="cl" />
+                     <label for="Ra">Nagercoil</label>
+                     <input type="radio" th:field="${stud.onl}" value="Online" id="on" required />
+                      <label for="male">Online</label>
+                     
+                 </div>
+
+        </fieldset>
+
+	 <fieldset class="sett">
+        <label for="name">Enter Guardian's name:</label>
+        <input type="text" id="gname" th:field="${stud.gname}" required />
+
+        <label>Preffered Training Timings:</label>
+        <div class="time-group">
+            <input type="checkbox" th:field="${stud.time}" value="morning" id="morning" required />
+            <label for="time">Between 8am-10am</label></br>
+            <input type="checkbox" th:field="${stud.time}" value="morn" id="morn" />
+            <label for="time">Between 9am-1pm</label></br>
+            <input type="checkbox" th:field="${stud.time}" value="noon" id="noon" />
+            <label for="time">Between 1pm-6pm</label></br>
+            <input type="checkbox" th:field="${stud.time}" value="eveng" id="eveng" />
+            <label for="time">Between 6am-10pm</label></br>
+        </div>
+
+        <label for="address">Enter your Address:</label>
+        <textarea id="address" th:field="${stud.address}" required></textarea>
+
+        <label for="name"> Country:</label>
+        <input type="text" id="count" th:field="${stud.count}" required />
+
+        <label for="name"> State:</label>
+        <input type="text" id="state" th:field="${stud.state}" required />
+
+        <label for="name">City:</label>
+        <input type="text" id="city" th:field="${stud.city}" required />
+
+        <label for="name">Pin:</label>
+        <input type="number" id="pin" th:field="${stud.pin}"required />
+         <input type="submit" value="Submit" />
+    </fieldset>
+
+    </form>
+</body>
+
+</html>
+
+
+</body>
+</html>
