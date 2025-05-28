@@ -5,9 +5,11 @@
 	import java.time.LocalDateTime;
 	import java.time.temporal.ChronoUnit;
 	import java.util.List;
-	import java.util.UUID;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
-	import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 	import org.springframework.http.HttpStatus;
 	import org.springframework.http.ResponseEntity;
 	import org.springframework.stereotype.Controller;
@@ -21,14 +23,21 @@
 	import org.springframework.web.bind.annotation.SessionAttributes;
 	
 	import com.Project1.Project1.Mail.Mailsender;
-	import com.Project1.Project1.Model.Formmodel;
+import com.Project1.Project1.Model.Course;
+import com.Project1.Project1.Model.CourseSignup;
+import com.Project1.Project1.Model.Formmodel;
 	import com.Project1.Project1.Model.OtpModel;
-	import com.Project1.Project1.Repo.Forminterface;
+import com.Project1.Project1.Repo.CourseRepo;
+import com.Project1.Project1.Repo.CourseSignupRepository;
+import com.Project1.Project1.Repo.Forminterface;
 	import com.Project1.Project1.Repo.OtpRepository;
 	import com.Project1.Project1.Service.Formservice;
 	
 	import jakarta.mail.MessagingException;
-	import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 	
 	@Controller
 	@SessionAttributes("user")
@@ -38,7 +47,13 @@
 	
 		@Autowired
 		Formservice service;
-	
+		
+		@Autowired
+		CourseSignupRepository courseSignupRepo;
+		
+		@Autowired
+		CourseRepo courserepo;
+		
 		@Autowired
 		Mailsender mailSender;
 	
@@ -52,43 +67,275 @@
 		Forminterface repo;
 		
 
-		@GetMapping("/form")
+		
+		@GetMapping("")
+			
+			public String Index() {
+			return "Index";
+		}
+		
+		@GetMapping("/register")
+		public String register() {
+			return "Register";
+		}
+		
+		@GetMapping("/login")
+		public String showLoginForm() {
+			
+		    return "Login"; 
+		    
+		}
+		
+
+		
+//		
+//		@PostMapping("/login")
+//		public String loginUser(@RequestParam("email") String email,
+//		                        @RequestParam("password") String password,
+//		                        Model model,
+//		                        HttpSession session) {
+//
+//		    List<Formmodel> users = service.findByMailAndPassword(email, password);
+//
+//		    if (users.size() != 1) {
+//		        model.addAttribute("error", "Invalid email or password.");
+//		        return "Login";
+//		    }
+//
+//		    Formmodel user = users.get(0);
+//		    session.setAttribute("user", user); 
+//		    model.addAttribute("user", user); 
+//		    return "BackendDashboard";
+//		}
+//         
+
+		
+		@PostMapping("/login")
+		public String loginUser(@RequestParam("email") String email,
+		                        @RequestParam("password") String password,
+		                        Model model,
+		                        HttpSession session) {
+
+		    List<Formmodel> users = service.findByMailAndPassword(email, password);
+
+		    if (users.size() != 1) {
+		        model.addAttribute("error", "Invalid email or password.");
+		        return "Login";
+		    }
+
+		    Formmodel user = users.get(0);
+		    session.setAttribute("user", user);
+
+		    // ✅ Redirect to dashboard controller, which prepares course data
+		    return "redirect:/spr/dashboard";
+		}
+
+		
+//		@GetMapping("/dashboard")
+//		public String dashboard(Model model, HttpSession session) {
+//		    Formmodel user = (Formmodel) session.getAttribute("user");
+//		    if (user == null) {
+//		        return "redirect:/login";
+//		    }
+//
+//		    List<Course> courses = courserepo.findAll();
+//
+//		    List<CourseSignup> signedCourses= courseSignupRepo.findByUserEmail(user.getMail());
+//
+//		    model.addAttribute("courses", courses);
+//		    model.addAttribute("signedCourses", signedCourses);
+//		    model.addAttribute("user", user);
+//
+//		    return "BackendDashboard"; // this loads your dashboard.html
+//		}
+
+		@GetMapping("/dashboard")
+		public String dashboard(Model model, HttpSession session) {
+		    Formmodel user = (Formmodel) session.getAttribute("user");
+		    if (user == null) {
+		        return "redirect:/login";
+		    }
+
+		  
+		    List<Course> allCourses = courserepo.findAll();
+		    List<CourseSignup> signedCourses = courseSignupRepo.findByUserEmail(user.getMail());
+
+		   
+		    Set<String> signedCourseNames = signedCourses.stream()
+		            .map(CourseSignup::getCourseName)
+		            .collect(Collectors.toSet());
+
+		  
+		    List<Course> unsignedCourses = allCourses.stream()
+		            .filter(course -> !signedCourseNames.contains(course.getCoursename()))
+		            .collect(Collectors.toList());
+
+		    
+		    model.addAttribute("courses", unsignedCourses);      
+		    model.addAttribute("signedCourses", signedCourses);  // Already signed courses
+		    model.addAttribute("user", user);
+
+		    return "BackendDashboard"; 
+		}
+
+	    
+
+		
+		@PostMapping("/signupcourse")
+		public String signupCourse(@RequestParam("courseId") Long courseId, HttpSession session) {
+		    
+		    Formmodel user = (Formmodel) session.getAttribute("user");
+		    if (user == null) return "redirect:/login";
+
+		    Course course = courserepo.findById(courseId).orElse(null);
+
+		    if (course != null) {
+		        CourseSignup signup = new CourseSignup();
+		        signup.setUserName(user.getName());
+		        signup.setUserEmail(user.getMail());
+		        signup.setCourseName(course.getCoursename());
+		        signup.setFee(course.getFee());
+		        signup. setDuration(course.getDuration());
+		        courseSignupRepo.save(signup);
+		    }
+
+		    return "redirect:/spr/dashboard";
+		}
+
+		
+		@GetMapping("/editprofile")
+		public String editprofile(Model model, HttpSession session) {
+		    Formmodel user = (Formmodel) session.getAttribute("user");
+		    if (user == null) {
+		        return "redirect:/spr/login"; // No user in session, redirect to login
+		    }
+		    model.addAttribute("user", user);
+		    return "Editprofile";
+		}
+		
+		@PostMapping("/editprofile")
+		public String updateProfile(@ModelAttribute("user") Formmodel updatedUser, HttpSession session, Model model) {
+		    Formmodel sessionUser = (Formmodel) session.getAttribute("user");
+
+		    if (sessionUser == null) {
+		        return "redirect:/spr/login"; // No user logged in
+		    }
+
+		    // Update only the name (keep email and password unchanged)
+		    sessionUser.setName(updatedUser.getName());
+
+		    // Save updated user to database
+		    service.savemethod(sessionUser);
+            session.setAttribute("user", sessionUser);
+            model.addAttribute("user", sessionUser);
+		    model.addAttribute("success", "Profile updated successfully.");
+		    return "Editprofile"; // reloads the page with updated info
+		}
+
+
+		
+		@GetMapping("/changepass")
+		public String changepass() {
+			
+		    return "Changepassword"; 
+		    
+		}
+		
+		
+		@PostMapping("/changepass")
+		public String changePassword(@RequestParam("currentPassword") String currentPassword,
+		                             @RequestParam("newPassword") String newPassword,
+		                             @RequestParam("confirmPassword") String confirmPassword,
+		                             HttpSession session,
+		                             Model model) {
+		    Formmodel user = (Formmodel) session.getAttribute("user");
+
+		    if (user == null) {
+		        return "redirect:/spr/login";
+		    }
+
+		    if (!user.getPassword().equals(currentPassword)) {
+		        model.addAttribute("error", "Current password is incorrect.");
+		        return "Changepassword";
+		    }
+
+		    if (!newPassword.equals(confirmPassword)) {
+		        model.addAttribute("error", "New passwords do not match.");
+		        return "Changepassword";
+		    }
+
+		    user.setPassword(newPassword);
+		    service.savemethod(user);
+
+		    session.invalidate(); // Auto logout
+
+		    return "redirect:/spr/login?msg=Password changed successfully. Please login again.";
+		}
+
+		
+		@GetMapping("/logout")
+		public String logout(HttpServletRequest request, HttpServletResponse response) {
+		    // Invalidate the session
+		    HttpSession session = request.getSession(false);
+		    if (session != null) {
+		        session.invalidate();
+		    }
+
+		    // Remove cookies
+		    Cookie[] cookies = request.getCookies();
+		    if (cookies != null) {
+		        for (Cookie cookie : cookies) {
+		            cookie.setValue("");
+		            cookie.setPath("/");
+		            cookie.setMaxAge(0); // Expire the cookie
+		            response.addCookie(cookie);
+		        }
+		    }
+
+		    return "redirect:/spr/login";
+		}
+
+		
+			
+		
+		@GetMapping("/signinform")
 		public String Form(Model model) {
 	
 			model.addAttribute("user", new Formmodel());
 			return "Formscope";
+			
 	
 		}
 	
 	
 		@PostMapping("/send")
 	
-		public String mail( @ModelAttribute Formmodel User,Model model) throws MessagingException {
+		public  ResponseEntity<String>  mail( @ModelAttribute Formmodel User,Model model) throws MessagingException {
 	
 
 			
-			String token = UUID.randomUUID().toString();
-		    User.setToken(token); // ✅ set the token
+//			String token = UUID.randomUUID().toString();
+//
+//			User.setToken(UUID.randomUUID().toString());
 
-		   
-			service.savemethod( User);
+			String token = UUID.randomUUID().toString();
+			User.setToken(token);           // ✅ Set token first
+			service.savemethod(User); 
 			mailSender.simplemail( User);
 			System.out.println(User.getMail()); // pass it till here
      		model.addAttribute("user", User); // store in a model
 			session.setAttribute("user",  User);//store in session
-			return "redirect:/spr/form";
+			return new ResponseEntity<>("Mail sent", HttpStatus.OK);
 	
 		}
 	
 		@GetMapping("/sigin")
 		public String showVerificationPage1(@RequestParam("token") String token,Model model,HttpSession session) {
-//			
-//			session.setAttribute("user", User);
-//			 Formmodel user = (Formmodel) session.getAttribute("user");
+
 			Formmodel user = service.getUserByToken(token);
 
 			    if (user == null) {
-			        return "redirect:/spr/form"; // Handle missing user session
+			        return "redirect:/spr/signinform"; // Handle missing user session
 			    }
 
 			    System.out.println(user.getMail());
@@ -99,72 +346,75 @@
 	
 		}
 	
-		// Handle the form submission and send OTP
-	
+
+		
 		@PostMapping("/submit-verification")
 		public String sendOtp(@ModelAttribute OtpModel otp, Model model, @RequestParam("token") String token) throws MessagingException {
-	
-			System.out.println("Received token from form: " + token);
-			Formmodel user = service.getUserByToken(token);
-			
-			 if (user == null) {
-			        // Redirect or show error
-			        model.addAttribute("error", "Session expired or user not found. Please fill the form again.");
-			        System.out.println("no user got in this method");
-			        return "redirect:/spr/form"; // or return an error page
-			    }
-	
-			String enteredEmail = user.getMail();
-	
-			System.out.println(enteredEmail + "000000");
-	
-			OtpModel otpModel = new OtpModel();
-	
-			String Verificationmail = otp.getEmail();
-	
-			// LocalDateTime createdtime=otp.getCreatedAt() ;
-			// long OTP_EXPIRATION_TIME = 5 * 60 * 1000;
-	
-			System.out.println(Verificationmail + "##########");
-			otpModel.setEmail(Verificationmail); // otpmodel
-	
-			String generatedOtp = mailSender.generateOtp();
-			System.out.println(generatedOtp);
-			otpModel.setOtp(generatedOtp);  // Generate the OTP (you will need a method to generate it)//otpmodel
-			otpModel.setCreatedAt(LocalDateTime.now());
-	
-			List<OtpModel> otpList = otprepo.findByEmail(enteredEmail);
-	
-			if (otpList != null && !otpList.isEmpty()) {
-				OtpModel otpModel1 = otpList.get(0);
-	
-				if (Verificationmail.equals(enteredEmail)) {
-	
-					service.Otpsave(otpModel); // otpModel
-					mailSender.sendOtpEmail(enteredEmail, generatedOtp);
-	
-					session.setAttribute("generatedOtp", generatedOtp);
-					session.setAttribute("otpSentTime", System.currentTimeMillis());
-					return "otpverification";
-	
-				}
-	
-			}
-	
-			// return new ResponseEntity<>("No record found for the given email!",
-			// HttpStatus.BAD_REQUEST);
-			return "redirect:/spr/sigin";
+
+		    System.out.println("Received token from form: " + token);
+		    Formmodel user = service.getUserByToken(token);
+
+//		    if (user == null) {
+//		        model.addAttribute("error", "Session expired or user not found. Please fill the form again.");
+//		        return "redirect:/spr/signinform";
+//		    }
+
+		    String enteredEmail = user.getMail();
+		    String verificationEmail = otp.getEmail();
+
+		    System.out.println("Entered Email: " + enteredEmail);
+		    System.out.println("Verification Email: " + verificationEmail);
+
+		    if (!verificationEmail.trim().equalsIgnoreCase(enteredEmail.trim())) {
+		    	model.addAttribute("error", "Entered email does not match registered email.");
+		        model.addAttribute("inp", new OtpModel());
+		        model.addAttribute("token", token);
+		        return "Signin2";
+		        
+		    }
+
+		    // Emails match – proceed to generate and send OTP
+		    String generatedOtp = mailSender.generateOtp();
+		    OtpModel otpModel = new OtpModel();
+		    otpModel.setEmail(verificationEmail.trim());
+		    otpModel.setOtp(generatedOtp);
+		    otpModel.setCreatedAt(LocalDateTime.now());
+
+		    // Save to DB
+		    service.Otpsave(otpModel);
+
+		    // Send OTP Email
+		    mailSender.sendOtpEmail(enteredEmail, generatedOtp);
+
+		    // Store in session
+		    session.setAttribute("generatedOtp", generatedOtp);
+		    session.setAttribute("otpSentTime", System.currentTimeMillis());
+		    model.addAttribute("token", token);
+		    return "otpverification";
 		}
+
 	
-		// Import necessary classes
-	
+		
 		@PostMapping("/verifyOtp")
-		public String verifyOtp(@RequestParam("otp") String enteredOtp, @ModelAttribute OtpModel otp, Model model,
+		public String verifyOtp(@RequestParam("otp") String enteredOtp, @ModelAttribute OtpModel otp, @RequestParam("token") String token, Model model,
 		HttpSession session) throws MessagingException {
 	
-			Formmodel user = (Formmodel) session.getAttribute("user");
-	
+
+			
+			Formmodel user = service.getUserByToken(token);
+			
+			System.out.println("User from token: " + user);
+
+			if (user == null) {
+			    model.addAttribute("error", "Invalid or expired token. Please try again.");
+			    return "redirect:/spr/signinform";
+			}
+			System.out.println(user);
+			
 			String email = user.getMail();
+			System.out.println(email);
+			
+			
 			String generatedOtp = (String) session.getAttribute("generatedOtp");
 			Long otpSentTime = (Long) session.getAttribute("otpSentTime");
 	
@@ -176,7 +426,7 @@
 				
 				session.removeAttribute("generatedOtp");
 		        session.removeAttribute("otpSentTime");
-		        
+		        model.addAttribute("token", token); 
 				return "otpexpired";
 			}
 	
@@ -192,26 +442,27 @@
 				System.out.println("Stored OTP: " + generatedOtp);
 	
 				if (enteredOtp.trim().equals(generatedOtp.trim())) {
-	
+					 model.addAttribute("token", token);
 					return "passwordverify";
 	
 				} else {
 	
 					System.out.println("WRONG OTP!");
 					model.addAttribute("otpError", "WRONG OTP TRY AGAIN.");
+					model.addAttribute("token", token); 
 					return "otpverification";
 				}
 				
 	
 			}
 	
-			return "redirect:/spr/sigin";
+			return "redirect:/spr/sigin?token=" + token;
 		}
 	
 		@GetMapping("/resendOtp")
-		public String resendOtp(HttpSession session, Model model) throws MessagingException {
+		public String resendOtp(HttpSession session, Model model, @RequestParam("token") String token) throws MessagingException {
 	
-			Formmodel user = (Formmodel) session.getAttribute("user");
+			Formmodel user = service.getUserByToken(token);
 			String email = user.getMail();
 	
 			String newOtp = mailSender.generateOtp();
@@ -221,6 +472,7 @@
 			session.setAttribute("otpSentTime", System.currentTimeMillis());
 	
 			model.addAttribute("otpSent", "New OTP has been sent to your email.");
+			model.addAttribute("token", token); 
 			return "otpverification";
 		}
 		
@@ -229,71 +481,35 @@
 		
 		
 	
-//	@PostMapping("/passwordverify")
-//	public String passverification(@RequestParam("pass")String password,@RequestParam("confirmpass") String confirmpassword,@ModelAttribute OtpModel otp,Model model, HttpSession session) {
-//		
-//		System.out.println(password);
-//		System.out.println(confirmpassword);
-//		if(password.equals(confirmpassword)) {
-//			
-//			Formmodel user = (Formmodel) session.getAttribute("user");
-//		    String email = user.getMail();
-//
-//		    // Fetch the actual user from DB
-//		    OtpModel existingUser = (OtpModel) otprepo.findByEmail(email); // You need this method in your Formservice
-//
-//		    if (existingUser != null) {
-//		    	
-//		        existingUser.setPassword(password); // assuming Formmodel has setPassword method
-//		        
-//		        service.Otpsave(existingUser); // Save the updated user back to the database
-//
-//		        return "otpsuccess";
-//		        
-//		        
-//		    } else {
-//		        model.addAttribute("otpError", "User not found for the given email.");
-//		        return "passwordverify";
-//		    }}}
-//	
-//	
 		@PostMapping("/passwordverify")
 		public String passverification(@RequestParam("pass") String password,
 		                               @RequestParam("confirmpass") String confirmpassword,
+		                               @RequestParam("token") String token,
 		                               Model model, HttpSession session) {
 
 		    // Step 1: Check if passwords match
-		    if (!password.equals(confirmpassword)) {
+		    if (password == null || confirmpassword == null || !password.equals(confirmpassword)) {
 		        model.addAttribute("error", "Passwords do not match.");
+		        model.addAttribute("token", token);
 		        return "passwordverify";
 		    }
 
-		    // Step 2: Get the user from session
-		    Formmodel userInSession = (Formmodel) session.getAttribute("user");
-		    if (userInSession == null) {
-		        model.addAttribute("error", "Session expired or user not found.");
-		        return "passwordverify";
+		    // Step 2: Get the user using token
+		    Formmodel user = service.getUserByToken(token);
+		    if (user == null) {
+		        model.addAttribute("error", "Invalid session or token. Please start over.");
+		        return "redirect:/spr/signinform";
 		    }
 
-		    // Step 3: Fetch user from database using email
-		    List<Formmodel> usersFromDb = service.findAllByMail(userInSession.getMail());
-		    if (usersFromDb == null || usersFromDb.isEmpty()) {
-		        model.addAttribute("error", "User not found in the system.");
-		        return "passwordverify";
-		    }
+		    // Step 3: Update password and save
+		    user.setPassword(password); // You can hash the password here if needed
+		    service.savemethod(user);   // Save using your service
 
-		    // Step 4: Pick the first matching user and update password
-		    Formmodel userToUpdate = usersFromDb.get(0);
-		    userToUpdate.setPassword(new String(password)); // You can also hash it here
-		    Formmodel updatedUser = repo.saveAndFlush(userToUpdate);
-		    System.out.println("Saving user: " + userToUpdate.getMail() + " | ID: " + userToUpdate.getId());
-
-		    
-		    service.savemethod(userToUpdate);
-		    session.setAttribute("user", userToUpdate);
-//		    session.removeAttribute("user");
-	        session.removeAttribute("generatedOtp");
-	        session.removeAttribute("otpSentTime");
-		    return "otpsuccess"; // Password successfully updated
+		    // Step 4: Clean session
+		    session.removeAttribute("generatedOtp");
+		    session.removeAttribute("otpSentTime");
+		    session.setAttribute("user", user);
+		    model.addAttribute("token", token);
+		    return "Login"; // Password successfully updated
 		}
 }

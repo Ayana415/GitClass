@@ -1,0 +1,997 @@
+
+
+
+
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background-image: url('/IMAGES/slider_bg.jpg.jpg');
+   
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .logo {
+    height: 150px;
+    width: 200px;
+  }
+
+  .nav-links {
+    display: flex;
+    justify-content: space-evenly;  /* Evenly space the items */
+    align-items: center;
+    margin-top:-30px;  /* Move up if needed, adjust as desired */
+   margin-left: 380px;
+  }
+ .nav-links div {
+  transition: border 0.3s ease;
+}
+
+ .nav-links div:hover {
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: transparent;
+     
+ }
+  .reg{
+	background-color:red;
+	border-radius:10px;
+	transition: background-color 0.3s ease, border 0.3s ease;
+  }
+
+
+  .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 10px;
+  }
+
+ .rating{
+	 position: absolute;
+  	 top: 35px;     
+ 	 right: 50px;  
+ 	 height: 100px;
+ 	 width: 190px;  
+ 	 
+}
+
+.phone{
+	position: fixed;
+  	 top: 10px;     
+ 	 right: 10px;  
+ 	height:40px;
+	width:40px; 
+}
+
+.login{
+	position: fixed;
+  	 top: 60px;     
+ 	 right: 10px;  
+ 	height:40px;
+	width:40px; 
+}
+
+.gallery{
+	position: fixed;
+  	 top: 110px;     
+
+
+ 	 right: 10px;  
+ 	height:40px;
+	width:40px; 
+}
+
+.app{
+	position: fixed;
+  	 top: 160px;     
+        right: 10px;  
+ 	height:40px;
+	width:40px; 
+}
+.yellowline{
+ width:100%;
+ height:3px;
+ background-color:#f1ad0e;
+
+}
+
+.bluebox {
+  width: 100%;
+  height: 100px;
+  background-color: rgb(4 13 55);
+  display: flex;
+  justify-content: center;    
+  align-items: center;         
+  color: white;
+  text-align: center;
+}
+
+.text-wrapper {
+  display: flex;
+  flex-direction: column;      
+  align-items: center;         
+}
+
+.bluebox h1 {
+  margin: 0;
+  font-size: 35px;
+  font-weight:bold;
+  color:#c7ac20;
+}
+
+.bluebox span {
+  font-size: 12px;
+  margin-top: 4px;  
+   color:#c7ac20;           
+}
+
+.whitebox {
+
+  width: 100%;
+  height: 150px;
+  background-color: white;
+  display: flex;                 
+  flex-direction: column;       
+  justify-content: center;       
+  align-items: center;           
+  text-align: center;            
+             
+}
+
+
+.whitebox h2 {
+
+  font-family: Viga;
+  color: #14267c;
+  font-weight: bold;
+  margin: 10px 0 5px 0; 
+  padding: 0 10px;
+
+}
+
+.whitebox h3 {
+  color: #14267c;
+  margin: 0;
+  font-weight: bold;
+  padding: 0 10px;
+}
+
+
+.yellow2{ width:100%;
+ height:5px;
+ background-color:#c7ac20;
+}
+.blue2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;       
+  height: 450px;
+  width: 100%;
+  gap: 10px;
+ 
+ background: linear-gradient(90deg, rgb(11 23 81) 0%, rgb(10 29 121) 31%);
+ 
+}
+
+.inside {
+  grid-row: span 5; 
+  
+  display: flex;
+  flex-direction: column; 
+  
+  padding: 20px;
+  margin-right:60px;
+
+
+  grid-column:span 3;
+}
+
+.inside1, .inside2, .inside3, .inside4 {
+  border:3px solid  #fecb00; 
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start;
+  justify-content: center;
+  height:180px;
+  border-top-left-radius:30px;
+  border-bottom-right-radius:30px;
+   transition: transform 0.3s ease, border 0.3s ease;
+  margin-top:20px;
+  margin-right:30px;
+  margin-left:0px;
+ 
+ 
+}
+
+.inside1:hover,
+.inside2:hover,
+.inside3:hover,
+.inside4:hover {
+  transform: scale(1.05) translateY(-5px); 
+  
+}
+
+/* Positioning the items explicitly for clarity (optional) */
+.inside1 { grid-column: 4; grid-row: 2; }
+.inside2 { grid-column: 5; grid-row: 2; }
+.inside3 { grid-column: 4; grid-row: 4; }
+.inside4 { grid-column: 5; grid-row: 4; }
+
+.inside h1 {
+  font-size: 35px;
+  margin-bottom: 10px;
+  margin-left:20px;
+ color: #fecb00;
+font-weight:bold;
+  
+}
+
+.inside1 a,.inside2 a,.inside3 a,.inside4 a,.blue2 a {
+
+  text-decoration: none;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.inside1 h3,.inside2 h3,.inside3 h3,.inside4 h3{ 
+color: #fecb00;
+text-align:left;
+ margin-bottom: 10px;
+font-size:25px;
+padding-left:5px;
+
+}
+
+
+.inside1 span,.inside2 span,.inside3 span,.inside4 span{
+ color:white;
+ padding-left:5px;
+ font-size:20px;
+ padding-left:5px;
+}
+
+
+
+
+
+.inside span {
+  font-size: 20px;
+  color: #333;
+  margin-top:20px;
+  margin-left:20px;
+  display: block;
+ font-weight:bold;
+color:white;
+}
+
+
+
+.course-lists {
+  display: flex;
+  gap: 40px; /* space between the two lists */
+  margin-top: 10px;
+ 
+padding-left:20px;
+
+}
+
+.course-lists ul {
+  list-style: none;
+  padding-left: 20px;
+  margin: 0;
+ margin-right:20px;
+}
+
+.course-lists li {
+  margin-bottom: 5px;
+  margin-right:20px;
+  margin-top:20px;
+  font-size: 14px;
+  color:white;
+font-weight:bold;
+}
+.course-lists li::before {
+ content: "\2713";
+ margin-right: 20px;   
+ color: rgb(234, 179, 8);         
+}
+ .wite2{
+  width:100%;
+  height:30px;
+ background-color:rgb(255, 250, 250);
+
+}
+.grey{
+  
+  width:100%;
+  height:200px;
+  color:#0b1e7d;
+  background-color:rgb(240, 240, 240);
+  font-size: 25px;
+  
+   
+   text-align: center
+}
+.grey h2 {
+  margin: 0;
+  padding: 0;
+  font-size:25px;
+}
+.grey1 {
+
+
+width:30%;
+height:120px;
+box-shadow:3px 3px 5px 5px grey;
+border-radius:10px;
+background-color:white;
+}
+.grey2{
+ 
+ width:30%;
+ height:120px;
+ box-shadow:3px 3px 5px 5px grey;
+ border-radius:10px;
+ background-color:white;
+}
+.grey3{
+  
+  width:30%;
+  height:120px;
+  box-shadow:3px 3px 5px 5px grey;
+  border-radius:15px;
+  background-color:white;
+  
+}
+.grey-boxes {
+  display: flex;
+  justify-content: center;  /* Centers the boxes horizontally */
+  align-items: center;
+  gap: 20px; /* Adds space between the boxes */
+  margin-top: 5px;
+}
+.grey-boxes span {
+  /* or try 0px if you want it very close */
+  font-size: 20px;
+  display: block;
+  font-weight:bold;
+ 
+}
+.grey1 h3,.grey2 h3,.grey3 h3{
+ color:#e5c000;
+ font-size:40px;
+ margin-top:10px;
+}
+
+
+
+.bigblue{
+  
+  background: linear-gradient(90deg, rgb(11 23 81) 0%, rgb(10 29 121) 31%);
+ text-align:center;
+  width: 100%;
+  height: 700px;
+ 
+  
+  justify-content: center; /* Vertically center content */
+  align-items: center; /* Horizontally center content */
+}
+
+.bigblue h1{
+
+text-align:center;
+color: #e0aa0c;
+ background: linear-gradient(0deg, rgb(187 151 39) 29%, rgb(249 245 146) 50%, rgb(215 167 41) 76%);
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+   font-weight: bold;
+   font-size:40px;
+  justify-content: center; /* Vertically center content */
+  align-items: center; /* Horizontally center content */
+}
+ 
+
+.sub{
+  text-align:center;
+   
+ 
+  font-weight: bold;
+  height:35px; 
+  width:25%;
+ 
+   background: linear-gradient(0deg, rgb(187, 151, 39) 3%, rgb(249, 245, 146) 56%, rgb(215, 167, 41) 100%);
+  -webkit-text-fill-color: #0b1e7d;; 
+ font-size:20px;
+ font-weight:bold;
+ justify-content: center; /* Vertically center content */
+  align-items: center; /* Horizontally center content */
+ margin-left:35%;
+ padding-top:15px;
+ border-top-left-radius:20px;
+ border-bottom-right-radius:20px;
+}
+
+
+.content-wrapper {
+  display: flex;
+  gap: 10px; /* optional spacing between them */
+}
+
+
+
+
+.movingman, .listings {
+  flex: 1; 
+  margin-top:20px;
+  
+  
+}
+
+
+
+.listings {
+  height: 300px; /* allow height to adjust */
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 20px;
+  align-items:center;
+  margin-right:20px;
+  margin-top:28px;
+  border: 3px solid rgb(234, 179, 8);
+  border-radius: 15px;
+  background-color: transparent;
+  
+}
+
+.listings ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 45%; /* Two columns */
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* uniform vertical spacing */
+}
+
+.listings li {
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  position: relative;
+  padding-left: 25px;
+  text-align: left;
+}
+
+
+.listings li::before {
+  content: "\2713"; /* checkmark */
+  position: absolute;
+  left: 0;
+  color: rgb(234, 179, 8);
+}
+
+
+
+
+
+.movingman{
+
+  min-height: 400px;
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center;         
+  padding-left: 5px; 
+  background-image: url('/IMAGES/data-science-ai-course-scopeindia.webp');
+  background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+}
+
+
+.movingman img{
+filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.5));
+height:380px;
+padding-left:0px;
+align-items:left;
+
+}
+
+@keyframes moveForwardBackward {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px);
+  }
+}
+
+.movingman img {
+  height: 380px;
+  filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.5));
+  animation: moveForwardBackward 2s ease-in-out infinite;
+}
+
+
+.dec{
+  color:white;
+  padding-top:40px;
+  font-size:25px;
+  margin-bottom: 20px;
+}
+.write3 {
+  width: 100%;
+  height: 500px;
+  
+  margin-top: 50px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column; 
+    background-color:#f0f0f0;
+}
+
+.text-inside {
+  color: #0b1e7d;
+  font-size: 30px;
+  margin-top: 60px;
+  margin-left: 90px; /* Adjust this to move it inwards */
+  margin-bottom: 20px;
+ font-weight: bold;
+ background-color:rgb(240, 240, 240);
+}
+
+.box-container {
+  display: flex;
+  gap: 30px; /* Optional: adds space between the boxes */
+ margin-top:30px;
+  background-color:rgb(240, 240, 240);
+ margin-left:100px;
+ 
+}
+
+.box1, .box2 {
+  
+ 
+  
+  text-align: center;
+ 
+  font-weight: bold;
+  border-radius: 10px;
+
+}
+.box1{
+ box-shadow:5px 5px 2px 2px gray;
+ width: 600px;
+ height: 300px;;
+background-color:white;
+padding: 20px; 
+ padding-top:20px; 
+}
+.box2{
+  height: 300px;
+  
+  width: 530px;
+  background-image: url('/IMAGES/full-stack-course-scopeindia.webp');
+   background-size: contain;     /* Use 'contain' to make image fully visible */
+  background-position: center;
+  background-repeat: no-repeat;
+ 
+  margin-top:0px;
+ 
+}
+
+.box1-content {
+  padding-top: 20px;
+  color: #0b1e7d;
+  font-family: Arial, sans-serif;
+  text-align: left;
+  
+}
+
+.box1-content h2 {
+  font-size: 24px;
+  color: #e0aa0c;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.box1-content ol {
+  list-style-type: decimal;
+  padding-left: 20px;
+}
+
+.box1-content li {
+  margin-bottom: 15px;
+}
+
+.box1-content li strong {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.box1-content li span {
+  display: block;
+  color: #444;
+  font-size: 16px;
+}
+.custom-number-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.custom-number-list li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2px;
+  align-items: center;
+}
+
+.custom-number-list .circle {
+  width: 25px;
+  height: 25px;
+  background-color: #fecb00;
+  border-radius: 50%;
+  color: #0b1e7d;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.custom-number-list .text {
+  flex: 1;
+justify-content: center;
+}
+
+.custom-number-list h4 {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.custom-number-list span {
+  font-size: 16px;
+  color: #444;
+}
+
+
+.white1 {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  
+  box-sizing: border-box;
+ 
+  font-size: 28px;
+  font-weight: bold;
+  color: #0b1e7d;
+  background-color:white;
+  }
+.white1 span{
+ font-weight:bold;
+ font-size:40px;
+}
+
+.white-row {
+ 
+  display: flex;
+  gap: 10px;
+  
+  box-sizing: border-box;
+  justify-content: space-between;
+  margin-top: 20px;
+  
+}
+
+.whitelisting,
+.whiteimage {
+  width: 30%;
+  width: calc(50% - 10px);
+  height: 300px; /* Adjust height as needed */
+  background-color: white; /* Example background */
+  
+  padding: 20px;
+ 
+  box-sizing: border-box;
+  
+  border:2pxsolid red;
+  
+}
+
+.whitelisting{
+  border-radius:15px;
+  background-color:#dededec7;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ 
+  padding: 20px;
+  box-sizing: border-box;
+}
+ .whiteimage{
+  background-image: url('/IMAGES/devops-course-scope-india.webp');
+   background-size: cover;     /* Use 'contain' to make image fully visible */
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+.whitelisting h2 {
+  font-size: 24px;
+   color: #0b1e7d;
+  margin-bottom: 20px;
+}
+
+.course-list-columns {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.course-list-columns ul {
+  list-style: none;
+  padding-left: 0;
+  text-align: left;
+  width: 48%; /* two columns with space */
+  
+   
+}
+
+.course-list-columns li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #0b1e7d;
+  text-align: left;
+  gap: 30px;
+}
+
+.course-list-columns li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color:#d9126f;
+  font-weight: bold;
+}
+
+.heading-bg {
+  background: linear-gradient(90deg, rgb(217 18 111 / 45%) 0%, rgb(217 18 111) 10%); /* or any color you like */
+  padding: 10px 15px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius:30px;
+  margin-bottom: 20px;
+  margin-right:100px;
+  margin-left: -20px;
+  box-shadow: 5px 2px 2px 2px gray;
+  text-align: center;
+}
+
+.heading-bg h2 
+{
+  color: white;
+  margin: 0;
+  text-align:left;
+  font-size: 24px;
+}
+
+
+
+.statlist {
+  height: 480px;
+  width: 100%;
+   background-color: #f0f0f0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.statlist .stat-heading {
+  text-align: center;
+  font-size: 35px;
+  font-weight:bold;
+  margin-bottom: 40px;
+  color: #0b1e7d;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-box1,.stat-box2 {
+  width: 48%; 
+ 
+  
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 8px; 
+ 
+  
+}
+.stat-box1{
+   height:350px;
+   background-image: url('/IMAGES/power-bi-course-scopeindia.webp');
+   background-size: contain;     
+   background-position: center;
+   background-repeat: no-repeat;
+   margin-top:-2px;
+   
+ 
+}
+
+.stat-box2 {
+  
+ 
+  height:320px;
+   
+
+  max-width: 900px;
+  margin-top: 10px;
+  
+  text-align: center;
+}
+
+
+.stat-columns {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.stat-col {
+  list-style: none;
+  padding: 0;
+  margin: 0 15px;
+  text-align: left;
+  
+}
+
+.stat-col li {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight:bold;
+  padding-left: 25px;
+  position: relative;
+  color: black; 
+  padding-top:30px;
+}
+
+.stat-col li::before {
+  content: "✔";
+  color: #e0aa0c;;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.stat-box-wrapper {
+  height:20px;
+  padding: 20px;
+  background-color: #fecb00;
+  text-align: center;
+    color: #0824b2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ font-size: 27px;
+ border-top-left-radius:30px;
+ border-bottom-right-radius:30px;
+ border-top-right-radius:5px;
+ border-bottom-left-radius:5px;
+}
+
+.misvis {
+  padding: 20px;
+  background: linear-gradient(90deg, rgb(13 29 105) 0%, rgb(10 29 121) 31%);
+  height:550px;
+  font-size: 32px;
+}
+
+.misvis h2 {
+ color: #fecb00;
+  text-align: center;
+  font-size: 35px;
+  font-weight:bold;
+  margin-bottom: 20px;
+}
+
+.misvis-row {
+  display: flex;
+  gap: 20px; /* optional spacing between columns */
+}
+
+.misvis-col {
+  flex: 1; /* each takes 50% */
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+ border-radius: 20px;
+    border: solid 2px #e5c000;
+   height:400px;
+   text-align:left;
+  background: linear-gradient(90deg, rgb(13 29 105) 0%, rgb(10 29 121) 31%);
+  color:white;
+  margin-top:35px;
+}
+.svg_div {
+    color: #fff;
+    width: 65px;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #e0aa0c;
+    margin-bottom: 20px;
+}
+.misvis-col p{
+  font-size:16px;
+  font-weight:bold;
+}
+
+  .misvis li {
+  list-style: none;
+  position: relative;
+  padding-left: 25px; 
+  margin-bottom: 10px;
+  font-size:16px;
+  font-weight:bold;
+
+}
+
+.misvis li::before {
+  content: '✔'; 
+  color: #e0aa0c;  
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.footercontainer{
+ 
+      padding: 10px;
+     padding-top:20px;
+    text-align: center;
+    color: white;
+    min-height: 100px;
+    background: #0a1d7b url('/IMAGES/footer.webp') repeat-x;
+    line-height: 21px;
+   font-size:18px;
+}
+.footercontainer a{
+	text-decoration: none;
+	color: 	whitesmoke;
+	
+	padding: 5px 10px;
+    margin: 0px 10px 10px 0px;
+}
+    
+.footercontainer .footer_line{
+    font-size:16px;
+}
+
+.footercontainer.footer_line a {
+   
+    margin:0px;
+    padding:10px 10px;
+}
+
+.footercontainer .footer_line span {
+     
+
+    margin:0px;
+    padding-left:10px;
+}
+
+
+
+ 

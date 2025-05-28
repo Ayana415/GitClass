@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard UI</title>
+  <link rel="stylesheet" href="/Dashstyle.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="profile-wrapper">
+        <img src="/IMAGES/pexels-photo-1239291 (1).jpeg" alt="Profile" class="profile-img" id="profileImage" />
+        <label for="profileUpload" class="edit-profile">✎</label>
+        <input type="file" id="profileUpload" accept="image/*" style="display: none;" />
+      </div>
+      <ul class="nav">
+        <li><a href="/spr/dashboard"><span class="icon">🏠</span> Dashboard </a></li> 
+        <li class="active"><a href="/spr/editprofile"><span class="icon">👤</span> Edit Profile</a></li>
+        <li><a href="/spr/changepass"><span class="icon">🔑</span> Change Password</a></li>
+        <li><a href="/spr/logout"><span class="icon">🔓</span> Logout </a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h2>Edit Profile</h2>
+      <form id="editProfileForm" class="edit-form" th:action="@{/spr/editprofile}" method="post" th:object="${user}">
+        
+      <p th:if="${success}" style="color: green;" th:text="${success}"></p>
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" th:field="*{name}" required />
+        </div>
+
+        <div class="form-group">
+          <label for="currentEmail">Current Email</label>
+          <input type="email" id="currentEmail" th:field="*{mail}" disabled />
+
+        </div>
+        
+        
+       
+
+        <div class="form-actions">
+          
+          <button type="submit">Save Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const profileUpload = document.getElementById('profileUpload');
+    const profileImage = document.getElementById('profileImage');
+
+    profileUpload.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          profileImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+   
+  </script>
+</body>
+</html>

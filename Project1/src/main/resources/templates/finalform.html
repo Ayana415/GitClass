@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Form</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        form {
+            justify-content: center;
+            align-items: center;
+            width: 1000px;
+            height:700px;
+            background-color: #fff; 
+            /* background-color:red; */
+            padding: 20px;
+            border-radius: 8px ;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        fieldset {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 200 px;
+            width:50%;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        .seto{ margin-bottom:0px;}
+        .sett{
+            /* padding: 5px 0px 5px 5px; */
+           margin-top:15px;
+           
+           
+        } 
+
+        legend {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            display: flex;
+            margin-bottom: 5px;
+        }
+
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea,
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"]{
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .gender-group,.Ra-group ,.time-group{
+            margin-bottom: 10px;
+        }
+
+        .gender-group label,.Ra-group label ,.time-group label{
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        input[type="radio"] {
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <form  style="display:flex ;column-gap:10px">
+        <fieldset class="seto">
+           <legend>Register Here</legend>
+            <label for="name">Enter your full name:</label>
+            <input type="text" id="name" name="name" required />
+            <label for="dob">Enter your Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required /></br></br>
+
+            <label>Enter your gender:</label>
+            <div class="gender-group">
+                <input type="radio" name="gender" value="male" id="male" required />
+                <label for="male">Male</label>
+                <input type="radio" name="gender" value="female" id="female" />
+                <label for="female">Female</label>
+                <input type="radio" name="gender" value="others" id="others" />
+                <label for="others">Others</label>
+            </div>
+            <label for="edu">Educational Qualification</label>
+            <input type="text" id="edu" name="edu" required />
+
+            <label for="edu">Choose Your Course</label>
+            <input type="text" id="edu" name="edu" required />
+
+            <label for="tel">Mobile Number:</label>
+            <input type="tel" id="tel" name="tel" required />
+           
+
+            <label for="email">Enter your email:</label>
+            <input type="email" id="email" name="email" required />
+
+            <label>Training Mode:</label>
+                <div class="Ra-group">
+                     <input type="radio" name="Ra" value="Online" id="on" required />
+                     <label for="Ra">Online</label>
+                    <input type="radio" name="Ra" value="Classroom" id="cl" />
+                    <label for="Ra">Classroom</label>
+            
+                 </div>
+
+            <label>SCOPE INDIA Location :</label>
+                 <div class="Ra-group">
+                      <input type="radio" name="Ra" value="Online" id="on" required />
+                      <label for="">Technopark TVM </label>
+                     <input type="radio" name="Ra" value="Classroom" id="cl" />
+                     <label for="Ra">Thampanoor TVM </label>
+                     <input type="radio" name="Ra" value="Online" id="on" required />
+                      <label for="Ra">Kochi </label></br>
+                     <input type="radio" name="Ra" value="Classroom" id="cl" />
+                     <label for="Ra">Nagercoil</label>
+                     <input type="radio" name="Ra" value="Online" id="on" required />
+                      <label for="male">Online</label>
+                     
+                 </div>
+
+        </fieldset>
+
+	 <fieldset class="sett">
+        <label for="name">Enter Guardian's name:</label>
+        <input type="text" id="gname" name="gname" required />
+
+        <label>Preffered Training Timings:</label>
+        <div class="time-group">
+            <input type="checkbox" name="time" value="morning" id="morning" required />
+            <label for="time">Between 8am-10am</label></br>
+            <input type="checkbox" name="time" value="morn" id="morn" />
+            <label for="time">Between 9am-1pm</label></br>
+            <input type="checkbox" name="time" value="noon" id="noon" />
+            <label for="time">Between 1pm-6pm</label></br>
+            <input type="checkbox" name="time" value="eveng" id="eveng" />
+            <label for="time">Between 6am-10pm</label></br>
+        </div>
+
+        <label for="address">Enter your Address:</label>
+        <textarea id="address" name="address" required></textarea>
+
+        <label for="name">Enter Guardian's name:</label>
+        <input type="text" id="gname" name="gname" required />
+
+        <label for="name">Enter Guardian's name:</label>
+        <input type="text" id="gname" name="gname" required />
+
+        <label for="name">Enter Guardian's name:</label>
+        <input type="text" id="gname" name="gname" required />
+
+        <label for="name">Pin:</label>
+        <input type="number" id="gname" name=th:field="${stud.pin}"required />
+         <input type="submit" value="Submit" />
+    </fieldset>
+
+    </form>
+</body>
+
+</html>

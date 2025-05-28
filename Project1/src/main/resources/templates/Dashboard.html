@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="/Dashstyle.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="profile-wrapper">
+    <div class="profile-img" id="profileImageWrapper">
+        <img th:if="${user.profileImage != null}" th:src="@{${user.profileImage}}" alt="Profile" id="profileImage" />
+        <div th:if="${user.profileImage == null}" class="profile-placeholder" th:text="${user.name.substring(0, 2).toUpperCase()}"></div>
+    </div>
+    <label for="profileUpload" class="edit-profile">✎</label>
+    <input type="file" id="profileUpload" accept="image/*" style="display: none;" />
+</div>
+
+      <ul class="nav">
+        <li><a href="/spr/dashboard"><span class="icon">🏠</span> Dashboard </a></li> 
+        <li class="active"><a href="/spr/editprofile"><span class="icon">👤</span> Edit Profile</a></li>
+        <li><a href="/spr/changepass"><span class="icon">🔑</span> Change Password</a></li>
+        <li><a href="/spr/logout"><span class="icon">🔓</span> Logout </a></li> 
+       </ul>
+    </div>
+
+    <!-- Main content -->
+    <div class="main">
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search courses..." class="search-bar" />
+      </div>
+
+      <div class="course-grid" id="list">
+        <!-- Course cards will be inserted here -->
+      </div>
+    </div>
+
+    <!-- Picked courses -->
+    <div class="picked-section">
+      <h4>Picked Courses</h4>
+    </div>
+  </div>
+
+  <script>
+    window.onload = () => {
+      var courses = [
+        { name: 'Data Science and AI Courses', fee: '$500', duration: '3 months' },
+        { name: 'Microsoft power Bi Course', fee: '$400', duration: '2 months' },
+        { name: 'Java Full stack Development Course', fee: '$450', duration: '2.5 months' },
+        { name: 'Phython Full stack Development Course', fee: '$450', duration: '2.5 months' },
+        { name: 'PHP Full stack Development Course', fee: '$450', duration: '2.5 months' },
+        { name: 'Mern Full stack Development Course', fee: '$500', duration: '3 months' },
+        { name: '.Net Full stack Development Course', fee: '$400', duration: '2 months' },
+        { name: 'Website Designing', fee: '$450', duration: '2.5 months' },
+        { name: 'UI/UX Design Course', fee: '$450', duration: '2.5 months' },
+        { name: 'Data Analytics Course', fee: '$450', duration: '2.5 months' }
+      ];
+
+      const listContainer = document.getElementById("list");
+      const pickedContainer = document.querySelector('.picked-section');
+
+      // Render courses
+      courses.forEach(item => {
+        const courseDiv = document.createElement("div");
+        courseDiv.className = "course-card";
+        courseDiv.innerHTML = `
+          <p class="course-name"><strong>${item.name}</strong></p>
+          <p>Fee: ${item.fee}</p>
+          <p>Duration: ${item.duration}</p>
+          <button>Sign up</button>
+        `;
+        listContainer.appendChild(courseDiv);
+
+        // Sign-up logic
+        const button = courseDiv.querySelector("button");
+        button.addEventListener("click", () => {
+          const pickedCard = document.createElement('div');
+          pickedCard.className = 'picked-card';
+          pickedCard.style.padding = '10px';
+          pickedCard.innerHTML = `
+            <strong>${item.name}</strong><br>
+            <small>Fee: ${item.fee}</small><br>
+            <small>Duration: ${item.duration}</small>
+          `;
+          pickedContainer.appendChild(pickedCard);
+          courseDiv.remove();
+        });
+      });
+
+      // Search filter
+      const searchInput = document.querySelector('.search-bar');
+      searchInput.addEventListener('input', () => {
+        const filter = searchInput.value.toLowerCase();
+        const courseCards = document.querySelectorAll('.course-card');
+
+        courseCards.forEach(card => {
+          const courseName = card.querySelector('.course-name').textContent.toLowerCase();
+          card.style.display = courseName.includes(filter) ? 'block' : 'none';
+        });
+      });
+
+      // Profile image upload
+      const profileUpload = document.getElementById('profileUpload');
+      const profileImage = document.getElementById('profileImage');
+      profileUpload.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            profileImage.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      
+     
+    };
+  </script>
+</body>
+
+</html>
+

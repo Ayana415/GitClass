@@ -5,9 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Project1.Project1.Model.Course;
+import com.Project1.Project1.Model.CourseSignup;
 import com.Project1.Project1.Model.Formmodel;
 import com.Project1.Project1.Model.OtpModel;
-
+import com.Project1.Project1.Repo.CourseRepo;
+import com.Project1.Project1.Repo.CourseRepository;
+import com.Project1.Project1.Repo.CourseSignupRepository;
 //import com.Project1.Project1.Model.OtpverificationModel;
 import com.Project1.Project1.Repo.Forminterface;
 import com.Project1.Project1.Repo.OtpRepository;
@@ -24,8 +28,11 @@ public class Formservice {
 	@Autowired 
 	OtpRepository otprepo;
 	
-//	Autowired
-//    private PasswordEncoder passwordEncoder;
+	@Autowired
+	CourseRepository courseRepo;
+
+//	@Autowired
+//	CourseSignupRepository courseSignupRepo;
 
 	@Transactional
 	public void savemethod(Formmodel model) {
@@ -34,8 +41,15 @@ public class Formservice {
 		  
 	}
 	
+	public List<Formmodel> findByMailAndPassword(String mail, String password) {
+	    return repo.findByMailAndPassword(mail, password);
+	}
 	public Formmodel getUserByToken(String token) {
-	    return repo.findByToken(token); // Assuming you have a repository
+		
+	    if (token == null || token.trim().isEmpty()) return null;
+
+	    System.out.println("Finding by token: [" + token.trim() + "]");
+	    return repo.findByToken(token.trim());
 	}
 	
 	public void Otpsave(OtpModel otp) {
@@ -48,9 +62,21 @@ public class Formservice {
 	    return repo.findAllByMail(email);
 	}
 	
-//	public void savePassword(String password) {
-//        String encodedPassword = passwordEncoder.encode(password);  // Encode password
-//        // Now save the encoded password to the database
-//    }
+	public List<Course> getAllCourses() {
+	    return courseRepo.findAll();
+	}
+	
+
+
+//	public void signupCourse(Formmodel user, Long courseId) {
+//	    Course course = courseRepo.findById(courseId).orElseThrow();
+//	    CourseSignup signup = new CourseSignup();
+//	    signup.setUser(user);
+//	    signup.setCourse(course);
+//	    courseSignupRepo.save(signup);
+//	}
+//	public List<CourseSignup> getUserCourses(Formmodel user) {
+//	    return courseSignupRepo.findByUser(user);
+//	}
 
 }

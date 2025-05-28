@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="/Dashstyle.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+     <div class="profile-wrapper">
+  <div class="profile-img" id="profileImageWrapper">
+   <img th:if="${user.profileImage != null}" th:src="@{${user.profileImage}}" alt="Profile" id="profileImage" />
+<div th:if="${user.profileImage == null}" class="profile-placeholder" th:text="${#strings.substring(user.name, 0, 2).toUpperCase()}"></div>
+
+  </div>
+  <label for="profileUpload" class="edit-profile">✎</label>
+  <input type="file" id="profileUpload" accept="image/*" style="display: none;" />
+</div>
+
+      <ul class="nav">
+        <li><a th:href="@{/spr/dashboard}"><span class="icon">🏠</span> Dashboard </a></li> 
+        <li class="active"><a th:href="@{/spr/editprofile}"><span class="icon">👤</span> Edit Profile</a></li>
+        <li><a th:href="@{/spr/changepass}"><span class="icon">🔑</span> Change Password</a></li>
+        <li><a th:href="@{/spr/logout}"><span class="icon">🔓</span> Logout </a></li> 
+      </ul>
+    </div>
+
+    <!-- Main content -->
+    <div class="main">
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search courses..." class="search-bar" />
+      </div>
+
+      <div class="course-grid" id="list">
+  <div class="course-card" 
+       th:each="course : ${courses}" 
+       th:attr="data-name=${course.coursename.toLowerCase()}">
+    <p class="course-name"><strong th:text="${course.coursename}">Course Name</strong></p>
+    <p>Fee: <span th:text="${course.fee}"></span></p>
+    <p>Duration: <span th:text="${course.duration}"></span></p>
+    <form th:action="@{/spr/signupcourse}" method="post">
+      <input type="hidden" name="courseId" th:value="${course.id}" />
+      <button type="submit">Sign up</button>
+    </form>
+  </div>
+</div>
+
+    </div>
+
+    <!-- Picked courses (optional, static for now) -->
+    <div class="picked-section">
+      <h4>Picked Courses</h4>
+      <div th:each="signed : ${signedCourses}" class="picked-card">
+        <strong th:text="${signed.courseName}"></strong><br>
+        <small>Fee: <span th:text="${signed.fee}"></span></small><br>
+        <small>Duration: <span th:text="${signed.duration}"></span></small>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Profile image upload preview
+    const profileUpload = document.getElementById('profileUpload');
+    const profileImage = document.getElementById('profileImage');
+    profileUpload.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          profileImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    const searchBar = document.querySelector('.search-bar');
+    const courseCards = document.querySelectorAll('.course-card');
+
+    searchBar.addEventListener('input', function () {
+      const query = this.value.toLowerCase();
+
+      courseCards.forEach(card => {
+        const name = card.getAttribute('data-name');
+        if (name.includes(query)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

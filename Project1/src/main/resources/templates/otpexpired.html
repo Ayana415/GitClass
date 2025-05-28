@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>OTP Expired</title>
@@ -7,6 +7,7 @@
 
 <body>
     <h3>Your OTP has expired. Please resend it.</h3>
-    <a href="/spr/resendOtp">Resend OTP</a>
+    <a  th:href="@{/spr/resendOtp(token=${token})}">Resend OTP</a>
+     <input type="hidden" name="token" th:value="${token}" />
 </body>
 </html>

@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HTML Login Form</title>
+    <link rel="stylesheet" href="/Loginstyle.css">
+</head>
+
+<body>
+    <div class="main">
+        <h1>Signup Page</h1>
+        <h3>Enter your login credentials</h3>
+
+        <form action="/spr/login" method="post"autocomplete="off">
+            <label for="first">
+                UserEmail:
+            </label>
+            <input type="email" id="first" name="email" 
+                placeholder="Enter your email" required>
+
+            <label for="password">
+                Password:
+            </label>
+            <input type="password" id="password" name="password" placeholder="Enter your Password" autocomplete="new-password" required>
+
+            <div class="wrap">
+                <button type="submit">
+                    Submit
+                </button>
+            </div>
+        </form>
+        
+        <div style="color: red;">
+    <p th:if="${error}" th:text="${error}"></p>
+</div>
+        
+        <p>Not registered?
+            <a href="/spr/signinform" style="text-decoration: none;">
+                Sign up 
+            </a>
+        </p>
+    </div>
+</body>
+
+</html>

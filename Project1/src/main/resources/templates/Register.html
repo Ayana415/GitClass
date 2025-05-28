@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="stylesheet" href="/Index.css" />
+   <link rel="stylesheet" href="/RegisterStyle.css" />
+   
+  <title> Register Form</title>
+ 
+
+    
+ 
+</head>
+
+<body>
+<header>
+<div class="image-container">
+  <img class="logo" src="/IMAGES/scopeindia-logo.webp" alt="image not found" />
+  
+  <div class="nav-links">
+    <div> <a href="#" target="_blank">HOME</a></div>
+    <div> <a href="#" target="_blank">COURSES</a></div>
+    <div class="reg"> <a href="#" target="_blank">REGISTRATION</a></div>
+    <div> <a href="#" target="_blank">PLACEMENTS</a></div>
+    <div> <a href="#" target="_blank">ABOUT US</a></div>
+    <div> <a href="#" target="_blank">FAQ</a></div>
+    <div><a href="#" target="_blank">REVIEWS</a></div>
+    <div> <a href="#" target="_blank">CONTACT US</a></div>
+  </div>
+
+<img class="rating" src="/IMAGES/google-rating-scope-india.webp" alt="imagenot found"/>
+<a href="#" target="_blank"><img class="phone" src="/IMAGES/callnow-scope-india-phone.webp" alt="image not found"  /></a>
+<a href="/spr/login" target="_blank"><img class="login" src="/IMAGES/login.png" alt="image not found"  /></a>
+<a href="#" target="_blank"><img class="app" src="/IMAGES/whatsapp-scope-india.webp" alt="image not found"  /></a>
+<a href="#" target="_blank"><img class="gallery" src="/IMAGES/gallery-scope-india.webp" alt="image not found"  /></a>
+</div>
+<div class="yellowline"></div>
+<div class="bluebox">
+  <div class="text-wrapper">
+    <h1>Your Career Partner!</h1>
+    <span>ISO 9001:2015 Certified Company</span>
+  </div>
+</div>
+<div class="whitebox"><h2>Center for Software, Networking, & Cloud Education</h2> <h3>One of India's best Training destinations for Software, Networking, DevOps and Cloud Computing courses with 18 years of Industrial experience. Over 1,000 students find their dream careers each year, and we have assisted more than 15,000 students so far.</h3></div>
+<div class="yellow2"></div>
+</header>
+
+
+
+<div class="formdiv">
+
+<div class="outerdiv">
+ <form action="#" method="post" class="formbody">
+    <!-- Left Side -->
+    <fieldset>
+      <legend>Personal Information</legend>
+
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required />
+
+      <label>Gender:</label>
+      <div class="group">
+        <input type="radio" name="gender" value="male" id="male" required />
+        <label for="male">Male</label>
+        <input type="radio" name="gender" value="female" id="female" />
+        <label for="female">Female</label>
+        <input type="radio" name="gender" value="others" id="others" />
+        <label for="others">Others</label>
+      </div>
+
+      <label for="qualification">Educational Qualification:</label>
+      <input type="text" id="qualification" name="qualification" required />
+
+      <label for="course">Course:</label>
+      <input type="text" id="course" name="course" required />
+
+      <label for="tel">Mobile Number:</label>
+      <input type="tel" id="tel" name="tel" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+
+      <label>Training Mode:</label>
+      <div class="group">
+        <input type="radio" name="mode" value="Online" id="mode-online" required />
+        <label for="mode-online">Online</label>
+        <input type="radio" name="mode" value="Classroom" id="mode-classroom" />
+        <label for="mode-classroom">Classroom</label>
+      </div>
+
+      <label>Location:</label>
+      <div class="group">
+        <input type="radio" name="location" value="Technopark" id="loc-techno" required />
+        <label for="loc-techno">Technopark</label>
+        <input type="radio" name="location" value="Thampanoor" id="loc-thamp" />
+        <label for="loc-thamp">Thampanoor</label>
+        <input type="radio" name="location" value="Kochi" id="loc-kochi" />
+        <label for="loc-kochi">Kochi</label>
+        <input type="radio" name="location" value="Nagercoil" id="loc-nager" />
+        <label for="loc-nager">Nagercoil</label>
+      </div>
+    </fieldset>
+
+    <!-- Right Side -->
+    <fieldset>
+      <legend>Additional Details</legend>
+
+      <label for="gname">Guardian's Name:</label>
+      <input type="text" id="gname" name="gname" required />
+
+      <label>Preferred Timing:</label>
+      <div class="group">
+        <input type="checkbox" name="time" value="8-10am" id="time1" />
+        <label for="time1">8am–10am</label><br />
+        <input type="checkbox" name="time" value="9-1pm" id="time2" />
+        <label for="time2">9am–1pm</label><br />
+        <input type="checkbox" name="time" value="1-6pm" id="time3" />
+        <label for="time3">1pm–6pm</label><br />
+        <input type="checkbox" name="time" value="6-10pm" id="time4" />
+        <label for="time4">6pm–10pm</label>
+      </div>
+
+      <label for="address">Address:</label>
+      <textarea id="address" name="address" rows="4" required></textarea>
+
+      <label for="pin">Pin Code:</label>
+      <input type="number" id="pin" name="pin" required />
+
+      <label for="state">State:</label>
+      <input type="text" id="state" name="state" required />
+
+      <label for="district">District:</label>
+      <input type="text" id="district" name="district" required />
+
+      <label for="place">Place:</label>
+      <input type="text" id="place" name="place" required />
+
+      <label for="postoffice">Post Office:</label>
+      <input type="text" id="postoffice" name="postoffice" required />
+
+      
+    </fieldset>
+
+
+  </form>
+</div>
+<div class="submit_form"><button class="button">Complete Registration >></button></div>
+</div>
+
+
+
+<footer>
+<div class="footercontainer">
+<span>We are located at Technopark TVM | Thampanoor TVM | Kochi, Kerala | Nagercoil, Tamil Nadu</span>
+<p><a href="tel:+919745936073" title="Call SCOPE INDIA Technopark, Trivandrum, Kerala 09745936073">9745936073&nbsp;(TPK)</a>
+				<a href="tel:+919745936073" title="Call SCOPE INDIA Trivandrum, Kerala 09745936073">9745936073&nbsp;(TVM)</a>
+				<a href="tel:+917592939481" title="Call SCOPE INDIA Kochi, Kerala 07592939481">7592939481&nbsp;(EKM)</a>
+				<a href="tel:+918075536185" title="Call SCOPE INDIA Nagercoil, Kerala 08075536185">8075536185&nbsp;(NGL)</a>
+				<a href="mailto:info@scopeindia.org?subject=I want to know more about courses" title="Email SCOPE INDIA">info@scopeindia.org</a>
+			</p>
+<p class="footer_line">
+                All Rights Reserved 
+                <a href="https://www.suffixesolutions.com/" title="Suffix E Solutions, a trusted IT Partner, the parent company of SCOPE INDIA" target="_blank">
+                    SCOPE INDIA & SUFFIX E SOLUTIONS PRIVATE LIMITED
+                </a>
+                &copy;&nbsp;2007-2025
+                <span>|</span>
+                <a href="privacy-policy.html" title="SCOPE INDIA Privacy Policy">
+                    Privacy Policy
+                </a>
+				<span>|</span>
+                <a href="#" title="SCOPE INDIA Privacy Policy">
+                    Blog
+                </a>
+            </p>
+
+</div>
+</footer>
+
+
+</body>
+
+</html>
+
+</body>
+</html>
